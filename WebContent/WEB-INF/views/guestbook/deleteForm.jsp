@@ -1,12 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%
+	//1.파라미터 꺼내기
+	int no = Integer.parseInt(request.getParameter("no"));
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="assets/css/mysite.css" rel="stylesheet" type="text/css">
-<link href="assets/css/user.css" rel="stylesheet" type="text/css">
+<link href="assets/css/guestbook.css" rel="stylesheet" type="text/css">
 
 </head>
 
@@ -45,11 +50,10 @@
 
 		<div id="container" class="clearfix">
 			<div id="aside">
-				<h2>회원</h2>
+				<h2>방명록</h2>
 				<ul>
-					<li>회원정보</li>
-					<li>로그인</li>
-					<li>회원가입</li>
+					<li>일반방명록</li>
+					<li>ajax방명록</li>
 				</ul>
 			</div>
 			<!-- //aside -->
@@ -57,37 +61,46 @@
 			<div id="content">
 			
 				<div id="content-head">
-					<h3>회원가입</h3>
+					<h3>일반방명록</h3>
 					<div id="location">
 						<ul>
 							<li>홈</li>
-							<li>회원</li>
-							<li class="last">회원가입</li>
+							<li>방명록</li>
+							<li class="last">일반방명록</li>
 						</ul>
 					</div>
 					<div class="clear"></div>
 				</div>
 				<!-- //content-head -->
 	
-				<div id="user">
-					<div id="joinOK">
+				<div id="guestbook">
+					<form action="./gbc" method="get">
+						<table id="guestDelete">
+							<colgroup>
+								<col style="width: 10%;">
+								<col style="width: 40%;">
+								<col style="width: 25%;">
+								<col style="width: 25%;">
+							</colgroup>
+							<tr>
+								<td>비밀번호</td>
+								<td><input type="password" name="password"></td>
+								<td class="text-left"><button type="submit">삭제</button></td>
+								<td><a href="./gbc?action=addList">[메인으로 돌아가기]</a></td>
+							</tr>
+						</table>
+						<input type='hidden' name="no" value="<%=no%>">
+						<input type='hidden' name="action" value="delete">
+					</form>
 					
-						<p class="text-large bold">
-							회원가입을 축하합니다.<br>
-							<br>
-							<a href="" >[로그인하기]</a>
-						</p>
-							
-					</div>
-					<!-- //joinOK -->
 				</div>
-				<!-- //user -->
+				<!-- //guestbook -->
 			</div>
 			<!-- //content  -->
+
 		</div>
 		<!-- //container  -->
-
-
+		
 		<div id="footer">
 			Copyright ⓒ 2021 김윤형. All right reserved
 		</div>
@@ -99,3 +112,4 @@
 </body>
 
 </html>
+    
