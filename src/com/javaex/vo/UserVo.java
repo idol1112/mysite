@@ -17,11 +17,17 @@ public class UserVo {
 		
 	}
 	
-	public UserVo(int no, String pw) {
+	public UserVo(int no, String name) {
 		this.no = no;
-		this.pw = pw;
+		this.name = name;
 	}
 	
+	public UserVo(String id, String pw) {
+		super();
+		this.id = id;
+		this.pw = pw;
+	}
+
 	public UserVo(String id, String pw, String name, String gender) {
 		
 		this.id = id;
@@ -30,6 +36,15 @@ public class UserVo {
 		this.gender = gender;
 	}
 	
+
+	public UserVo(int no, String id, String pw, String name, String gender) {
+		super();
+		this.no = no;
+		this.id = id;
+		this.pw = pw;
+		this.name = name;
+		this.gender = gender;
+	}
 
 	//메소드 g-s
 	public int getNo() {
