@@ -115,6 +115,9 @@ public class UserController extends HttpServlet {
 			UserDao userDao = new UserDao();
 			int count = userDao.userUpdate(userVo);
 			
+			HttpSession session = request.getSession();
+			session.setAttribute("authUser", userVo); // jsp에 데이터 전달할때 비교 request.setAttribute();
+			
 			//리다이렉트 -메인페이지
 			WebUtil.redirect(request, response, "./main");
 		}
