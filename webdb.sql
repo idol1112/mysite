@@ -151,7 +151,11 @@ where b.user_no = u.no
 and u.no = 1
 and b.no = 1;
 
+--board ªË¡¶
+DELETE board
+where no = 1;
+
 select *
 from users;
-
+commit;
 rollback;
