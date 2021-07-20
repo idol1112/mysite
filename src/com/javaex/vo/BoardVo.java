@@ -18,14 +18,23 @@ public class BoardVo {
 	public BoardVo() {
 		super();
 	}
-
+	//insert
+	public BoardVo(String title, String content, int userNo) {
+		super();
+		this.title = title;
+		this.content = content;
+		this.userNo = userNo;
+	}
+	
+	//update
 	public BoardVo(int no, String title, String content) {
 		super();
 		this.no = no;
 		this.title = title;
 		this.content = content;
-	}
+		}
 	
+	//boardList
 	public BoardVo(int no, String title, int hit, String regDate, int userNo, String uName) {
 		this.no = no;
 		this.title = title;
@@ -35,6 +44,27 @@ public class BoardVo {
 		this.uName = uName;
 	}
 	
+	//modifyForm
+	public BoardVo(int no, String title, String content, int hit, String regDate, String uName) {
+		super();
+		this.no = no;
+		this.title = title;
+		this.content = content;
+		this.hit = hit;
+		this.regDate = regDate;
+		this.uName = uName;
+	}
+	
+	//boardRead
+	public BoardVo(String title, String content, int hit, String regDate, int userNo, String uName) {
+		super();
+		this.title = title;
+		this.content = content;
+		this.hit = hit;
+		this.regDate = regDate;
+		this.userNo = userNo;
+		this.uName = uName;
+	}
 
 
 	//메소드-gs

@@ -46,10 +46,12 @@
 	
 				<div id="board">
 					<div id="list">
-						<form action="" method="">
+						<form action="/mysite/board" method="get">
 							<div class="form-group text-right">
-								<input type="text">
+								<input type="text" name="search_txt" value="" 
+								 	   placeholder="검색어를 입력하세요">
 								<button type="submit" id=btn_search>검색</button>
+								<input type="hidden" name="action" value="search">
 							</div>
 						</form>
 						<table >
@@ -67,11 +69,15 @@
 							<c:forEach items="${requestScope.bList}" var="vo">
 								<tr>
 									<td>${vo.no}</td>
-									<td class="text-left"><a href="#">${vo.title}</a></td>
+									<td class="text-left"><a href="/mysite/board?action=read&no=${vo.no}">${vo.title}</a></td>
 									<td>${vo.uName}</td>
 									<td>${vo.hit}</td>
 									<td>${vo.regDate}</td>
-									<td><a href="">[삭제]</a></td>
+									<td>
+									<c:if test="${vo.userNo == authUser.no}">
+										<a href="/mysite/board?action=delete&no=${vo.no}">[삭제]</a>
+									</c:if>
+									</td>
 								</tr>
 							</c:forEach>
 							</tbody>
@@ -96,8 +102,9 @@
 							
 							<div class="clear"></div>
 						</div>
-						<a id="btn_write" href="">글쓰기</a>
-					
+						<c:if test="${authUser != null }">
+							<a id="btn_write" href="/mysite/board?action=wform">글쓰기</a>
+						</c:if>
 					</div>
 					<!-- //list -->
 				</div>
