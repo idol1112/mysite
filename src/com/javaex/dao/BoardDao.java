@@ -78,18 +78,19 @@ public class BoardDao {
 			query += " from    users u, board b ";
 			query += " where   u.no = b.user_no ";
 			
-			if(search != "" || search == null) {
+			if(search == "" || search == null) { // 키워드가 없을 때
 			
-				query += " and   (b.title || u.name || b.content) like ? "; //괄호를 쳐야 and문 작동
+				query += " order by b.no desc ";
+				pstmt = conn.prepareStatement(query);
+				
+			}else { // 키워드가 있을 때
+				query += " and   (b.title || u.name || b.content) like ? "; // 괄호를 쳐야 and문 작동
 				query += " order by b.no desc ";
 				pstmt = conn.prepareStatement(query);
 			
-				String searching = '%' + search + '%'; //받아온 search에 '%'문자열 추가
+				String searching = '%' + search + '%'; // 받아온 search에 '%'문자열 추가
 			
 				pstmt.setString(1, searching);
-			}else {
-				query += " order by b.no desc ";
-				pstmt = conn.prepareStatement(query);
 			}
 		
 			rs = pstmt.executeQuery();
