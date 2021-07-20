@@ -10,8 +10,15 @@ public class GuestVo {
 	private String regDate;
 	
 	//생성자
-	public GuestVo(int no) {
+	public GuestVo(int no, String password) {
+		super();
 		this.no = no;
+		this.password = password;
+	}
+
+	public GuestVo(String password) {
+		super();
+		this.password = password;
 	}
 	
 	public GuestVo(String name, String password, String content) {

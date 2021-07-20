@@ -120,7 +120,7 @@ public class UserDao {
 	}
 	
 	//유저 1명 정보 전부 가져오기
-		public UserVo getUserAll(String ID, String pass) {
+		public UserVo getUser(int userNo) {
 			
 			UserVo userVo = null;
 			getConnection();
@@ -130,12 +130,10 @@ public class UserDao {
 				String query = "";
 				query += " select no, id, password, name, gender ";
 				query += " from users ";
-				query += " where id = ? ";
-				query += " and password = ? ";
+				query += " where no = ? ";
 				
 				pstmt = conn.prepareStatement(query);
-				pstmt.setString(1, ID);
-				pstmt.setString(2, pass);
+				pstmt.setInt(1, userNo);
 				
 				rs = pstmt.executeQuery();
 				
@@ -170,19 +168,17 @@ public class UserDao {
 				// 3. SQL문 준비 / 바인딩 / 실행
 				String query = ""; // 쿼리문 문자열만들기, ? 주의
 				query += " update users ";
-				query += " set id = ? , ";
-				query += "     password = ? , ";
+				query += " set password = ? , ";
 				query += "     name = ? , ";
 				query += "     gender = ? ";
 				query += " where no = ? ";
 
 				pstmt = conn.prepareStatement(query); // 쿼리로 만들기
 
-				pstmt.setString(1, userVo.getId()); // ?(물음표) 중 1번째, 순서중요
-				pstmt.setString(2, userVo.getPw()); // ?(물음표) 중 2번째, 순서중요
-				pstmt.setString(3, userVo.getName()); // ?(물음표) 중 3번째, 순서중요
-				pstmt.setString(4, userVo.getGender()); // ?(물음표) 중 4번째, 순서중요
-				pstmt.setInt(5, userVo.getNo()); // ?(물음표) 중 5번째, 순서중요
+				pstmt.setString(1, userVo.getPw()); // ?(물음표) 중 2번째, 순서중요
+				pstmt.setString(2, userVo.getName()); // ?(물음표) 중 3번째, 순서중요
+				pstmt.setString(3, userVo.getGender()); // ?(물음표) 중 4번째, 순서중요
+				pstmt.setInt(4, userVo.getNo()); // ?(물음표) 중 5번째, 순서중요
 
 				count = pstmt.executeUpdate(); // 쿼리문 실행
 

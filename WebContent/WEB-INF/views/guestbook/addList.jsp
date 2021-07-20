@@ -1,19 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<%@ page import="com.javaex.vo.UserVo" %>
-<%@ page import="com.javaex.vo.GuestVo" %>
-<%@ page import="java.util.List"%>
-
-<%
-	//로그인 관련
-	UserVo authUser = (UserVo)session.getAttribute("authUser");
-	System.out.println(authUser);
-
-	//리스트 출력관련
-	List<GuestVo> guestList = (List<GuestVo>)request.getAttribute("gList");
-
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,7 +16,7 @@
 <body>
 	<div id="wrap">
 		<!--  header(로고, 로그인버튼) nav(메뉴들) -->
-		<jsp:include page="/WEB-INF/views/includes/header.jsp"></jsp:include>
+		<c:import url="/WEB-INF/views/includes/header.jsp"></c:import>
 	
 		<div id="container" class="clearfix">
 			<div id="aside">
@@ -84,30 +72,26 @@
 						
 					</form>	
 					
-					<%
-					for (int i=0; i < guestList.size(); i++) {
-					%>
-					<table class="guestRead">
-						<colgroup>
-							<col style="width: 10%;">
-							<col style="width: 40%;">
-							<col style="width: 40%;">
-							<col style="width: 10%;">
-						</colgroup>
-						<tr>
-							<td><%= guestList.get(i).getNo() %></td>
-							<td><%= guestList.get(i).getName() %></td>
-							<td><%= guestList.get(i).getRegDate() %></td>
-							<td><a href="./gbc?action=dform&no=<%= guestList.get(i).getNo() %>">삭제</a></td>
-						</tr>
-						<tr>
-							<td colspan=4 class="text-left"><%= guestList.get(i).getContent() %></td>
-						</tr>
-					</table>
+					<c:forEach items="${requestScope.gList}" var="vo">
+						<table class="guestRead">
+							<colgroup>
+								<col style="width: 10%;">
+								<col style="width: 40%;">
+								<col style="width: 40%;">
+								<col style="width: 10%;">
+							</colgroup>
+							<tr>
+								<td>${vo.no}</td>
+								<td>${vo.name}</td>
+								<td>${vo.regDate}</td>
+								<td><a href="./gbc?action=dform&no=${vo.no}">삭제</a></td>
+							</tr>
+							<tr>
+								<td colspan=4 class="text-left">${vo.content}</td>
+							</tr>
+						</table>
 					<!-- //guestRead -->
-					<%
-					}
-					%>
+					</c:forEach>
 					
 				</div>
 				<!-- //guestbook -->
@@ -118,7 +102,7 @@
 		<!-- //container  -->
 		
 		<!-- footer -->
-		<jsp:include page="/WEB-INF/views/includes/footer.jsp"></jsp:include>
+		<c:import url="/WEB-INF/views/includes/footer.jsp"></c:import>
 		
 	</div>
 	<!-- //wrap -->

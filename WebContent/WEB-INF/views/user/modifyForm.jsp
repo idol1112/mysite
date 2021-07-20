@@ -1,11 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="com.javaex.vo.UserVo" %>
-<%
-	//로그인 관련
-	UserVo authUserAll = (UserVo)session.getAttribute("authUserAll");
-	System.out.println(authUserAll);
-%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,7 +16,7 @@
 	<div id="wrap">
 
 		<!--  header(로고, 로그인버튼) nav(메뉴들) -->
-		<jsp:include page="/WEB-INF/views/includes/header.jsp"></jsp:include>
+		<c:import url="/WEB-INF/views/includes/header.jsp"></c:import>
 
 		<div id="container" class="clearfix">
 			<div id="aside">
@@ -55,45 +51,47 @@
 							<!-- 아이디 -->
 							<div class="form-group">
 								<label class="form-text" for="input-uid">아이디</label> 
-								<span class="text-large bold"><%=authUserAll.getId()%></span>
+								<span class="text-large bold">${UserVo.id}</span>
 							</div>
 	
 							<!-- 비밀번호 -->
 							<div class="form-group">
 								<label class="form-text" for="input-pass">패스워드</label> 
-								<input type="text" id="input-pass" name="pw" value="<%=authUserAll.getPw()%>">
+								<input type="text" id="input-pass" name="pw" value="${UserVo.pw}">
 							</div>
 	
 							<!-- 이름 -->
 							<div class="form-group">
 								<label class="form-text" for="input-name">이름</label> 
-								<input type="text" id="input-name" name="name" value="<%=authUserAll.getName()%>">
+								<input type="text" id="input-name" name="name" value="${UserVo.name}">
 							</div>
 	
 							<!-- //성별 -->
 							<div class="form-group">
 								<span class="form-text">성별</span> 
-								<%if("male".equals(authUserAll.getGender())) { %>
+								<c:choose>
+									<c:when test = "${'male' eq UserVo.gender }">
 									<label for="rdo-male">남</label> 
 									<input type="radio" id="rdo-male" name="gender" value="male" checked="checked"> 
 									
 									<label for="rdo-female">여</label> 
 									<input type="radio" id="rdo-female" name="gender" value="female"> 
-								<%}else { %>
-										<label for="rdo-male">남</label> 
-										<input type="radio" id="rdo-male" name="gender" value="male"> 
+									</c:when>
 									
-										<label for="rdo-female">여</label> 
-										<input type="radio" id="rdo-female" name="gender" value="female" checked="checked"> 
-								<%} %>
+									<c:otherwise>
+									<label for="rdo-male">남</label> 
+									<input type="radio" id="rdo-male" name="gender" value="male"> 
+									
+									<label for="rdo-female">여</label> 
+									<input type="radio" id="rdo-female" name="gender" value="female" checked="checked">
+									</c:otherwise> 
+								</c:choose>
 							</div>
 	
 							<!-- 버튼영역 -->
 							<div class="button-area">
 								<button type="submit" id="btn-submit">회원정보수정</button>
 							</div>
-							<input type="hidden" name="id" value="<%=authUserAll.getId()%>">
-							<input type="hidden" name="no" value="<%=authUserAll.getNo()%>">
 							<input type="hidden" name="action" value="modify">
 						</form>
 					
@@ -109,7 +107,7 @@
 		<!-- //container  -->
 
 		<!-- footer -->
-		<jsp:include page="/WEB-INF/views/includes/footer.jsp"></jsp:include>
+		<c:import url="/WEB-INF/views/includes/footer.jsp"></c:import>
 		
 	</div>
 	<!-- //wrap -->

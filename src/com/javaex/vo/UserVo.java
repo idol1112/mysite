@@ -22,15 +22,17 @@ public class UserVo {
 		this.name = name;
 	}
 	
-	public UserVo(String id, String pw) {
-		super();
-		this.id = id;
-		this.pw = pw;
-	}
-
 	public UserVo(String id, String pw, String name, String gender) {
 		
 		this.id = id;
+		this.pw = pw;
+		this.name = name;
+		this.gender = gender;
+	}
+	
+	public UserVo(int no, String pw, String name, String gender) {
+		super();
+		this.no = no;
 		this.pw = pw;
 		this.name = name;
 		this.gender = gender;

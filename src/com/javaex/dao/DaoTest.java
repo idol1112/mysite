@@ -14,7 +14,7 @@ public class DaoTest {
 		
 		UserDao userDao = new UserDao();
 		UserVo userVo = new UserVo();
-		userVo = userDao.getUserAll("idol1112", "1234");
+		userVo = userDao.getUser("idol1112", "1234");
 		System.out.println(userVo);
 	}
 

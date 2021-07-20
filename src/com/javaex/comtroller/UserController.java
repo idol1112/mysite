@@ -67,14 +67,12 @@ public class UserController extends HttpServlet {
 			//dao 회원정보 조회하기(세션 저장용)
 			UserDao userDao = new UserDao();
 			UserVo userVo = userDao.getUser(id, pw);
-			UserVo userVo2 = userDao.getUserAll(id, pw);
 			
 			if(userVo != null) {
 				System.out.println("로그인 성공!");
 				//성공일 때(아이디, 비밀번호 일치) 세션에 저장
 				HttpSession session = request.getSession();
 				session.setAttribute("authUser", userVo); // jsp에 데이터 전달할때 비교 request.setAttribute();
-				session.setAttribute("authUserAll", userVo2);
 				
 				//리다이렉트 -메인페이지
 				WebUtil.redirect(request, response, "./main");
@@ -102,21 +100,23 @@ public class UserController extends HttpServlet {
 			System.out.println("UserController.modify");
 			
 			//파라미터 꺼내기
-			int no = Integer.parseInt(request.getParameter("no"));
-			String id = request.getParameter("id");
 			String pw = request.getParameter("pw");
 			String name = request.getParameter("name");
 			String gender = request.getParameter("gender");
 			
+			//세션에서 no값 꺼내기
+			HttpSession session = request.getSession();
+			UserVo authUser = (UserVo)session.getAttribute("authUser");
+			int no = authUser.getNo();
+			
 			//vo로 하나로 묶어주기
-			UserVo userVo = new UserVo(no, id, pw, name, gender);
+			UserVo userVo = new UserVo(no, pw, name, gender);
 			
 			//dao.insert(vo) --> db에 저장
 			UserDao userDao = new UserDao();
-			int count = userDao.userUpdate(userVo);
+			userDao.userUpdate(userVo);
 			
-			HttpSession session = request.getSession();
-			session.setAttribute("authUser", userVo); // jsp에 데이터 전달할때 비교 request.setAttribute();
+			authUser.setName(name);
 			
 			//리다이렉트 -메인페이지
 			WebUtil.redirect(request, response, "./main");
